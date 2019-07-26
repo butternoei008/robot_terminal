@@ -90,4 +90,19 @@ class Robot
             end
         end
     end
+
+    def beam
+        print "\n  /|\n"
+        print " /|\n"
+        print "◙◙◙◙ \n"
+        (1..30).each do |i|
+            print "◘"
+            sleep(0.03)
+        end
+        print "\n◙◙◙◙"
+        print "\n \\|"
+        print "\n  \\| \n"
+        
+        self.press_key
+    end
 end

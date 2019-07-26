@@ -9,6 +9,7 @@ class Controller < Robot
             puts "\n=========Comand========="
             puts "[1] Sayhi!"
             puts "[2] Move"
+            puts "[3] Beammmmm!!!"
             puts "[0] Exit"
             
             print "Choose an order: "
@@ -20,7 +21,6 @@ class Controller < Robot
                 break
             end
         end
-
 
         return cmd
     end
@@ -34,6 +34,8 @@ class Controller < Robot
                 self.sayhi()
             when 2
                 self.move()
+            when 3
+                self.beam()
             else
                 if cmd != 0
                     puts "not found"
