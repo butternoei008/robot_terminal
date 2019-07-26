@@ -1,11 +1,16 @@
 class Robot
     def initialize()
-        @bettery = ""
+        @bettery = 100
+    end
+
+    def press_key
+        require 'io/console' 
+
+        puts "\n\nPress any key is text....\n\n"
+        STDIN.getch
     end
     
     def sayhi()
-        require 'io/console' 
-        
         print "\nWhat is your name?"
         print "\nMy name is: "
         
@@ -14,50 +19,75 @@ class Robot
         puts "\nHi #{name}"
         puts "I'm a robot :D"
 
-        STDIN.getch
+        self.press_key()
     end
 
-end
-
-class Controller < Robot
-    def command()
-        cmd = ""
+    def meter
+        meter = 0
 
         loop do
-            puts "[1] sayhi!"
-            puts "[0] Exit"
-            print "Choose an order: "
+            print "\nHow many meters: "
+            meter = gets.chomp.to_i
 
-            cmd = gets.chomp.to_i
-
-            if cmd < 1 && cmd > 1
-                puts "can't choose order try again!"
-            else
+            if meter > 0
                 break
+            else
+                puts "Robot can't move!"
             end
         end
 
+        return meter
+    end
 
-        return cmd
+    def forward()
+        meter = self.meter()
+        puts "Robot go forward #{meter} m.\n\n"
     end
     
-    def route_command()
+    def left()
+        meter = self.meter()
+        puts "Robot go Left #{meter} m.\n\n"
+    end
+    
+    def right()
+        meter = self.meter()
+        puts "Robot go Right #{meter} m.\n\n"
+    end
+
+    def back()
+        meter = self.meter()
+        puts "Robot go back #{meter} m.\n\n"
+    end
+    
+    def move
+        system "cls"
+        
         loop do
-            cmd = self.command()
+            puts "[8] Forward"
+            puts "[4] Left"
+            puts "[6] Right"
+            puts "[2] Back"
+            puts "[0] Stop!"
 
-            case cmd
-            when 1
-                self.sayhi()
-            else
-                if cmd != 0
-                    puts "not found"
+            print "Choose an order: "
+            ctr = gets.chomp.to_i
+
+            if ctr == 8 || ctr == 4 || ctr == 6 || ctr == 2 || ctr == 0
+                case ctr
+                when 8
+                    self.forward()
+                when 4
+                    self.left()
+                when 6
+                    self.right()
+                when 2
+                    self.back()
+                when 0
+                    break
                 end
+            else
+                puts "Can't choose try again!"
             end
-
-            break if cmd == 0
         end
     end
 end
-
-robot = Controller.new
-robot.route_command
