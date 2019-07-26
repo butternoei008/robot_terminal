@@ -6,6 +6,7 @@ class Controller < Robot
         cmd = ""
 
         loop do
+            self.bettery
             puts "\n=========Comand========="
             puts "[1] Sayhi!"
             puts "[2] Move"

@@ -1,6 +1,20 @@
 class Robot
-    def initialize()
-        @bettery = 100
+    def initialize
+        @bettery = 10
+    end
+
+    def bettery
+        bett = @bettery
+        
+        puts "\n\n"
+        print "POWER: "
+        
+        (1..bett).each do |i|
+            print "[]"
+            sleep(0.03)
+        end
+
+        puts "\n\n"
     end
 
     def press_key
@@ -10,7 +24,7 @@ class Robot
         STDIN.getch
     end
     
-    def sayhi()
+    def sayhi
         print "\nWhat is your name?"
         print "\nMy name is: "
         
@@ -18,19 +32,43 @@ class Robot
         
         puts "\nHi #{name}"
         puts "I'm a robot :D"
+        
+        @bettery -= 0.5
 
-        self.press_key()
+        self.press_key
     end
 
     def meter
         meter = 0
-
+        far = @bettery / 0.05
+        
         loop do
+            if @bettery < 1
+                puts "Power out !!!"
+                meter = 0
+                break
+            end
+
             print "\nHow many meters: "
-            meter = gets.chomp.to_i
+            meter = gets.chomp.to_f
 
             if meter > 0
-                break
+                if meter / 20 <= @bettery 
+                    @bettery -= (meter / 20)
+                    far = @bettery / 0.05
+                    puts "Power balance: #{@bettery}"
+                    puts "Move as far as possible: #{far} m."
+                    self.bettery
+
+                    break
+                else
+                    puts "Not enough power with distance!"
+                    puts "Power balance: #{@bettery}"
+                    puts "Move as far as possible: #{far} m."
+                    self.bettery
+
+                    meter = 0
+                end
             else
                 puts "Robot can't move!"
             end
@@ -39,23 +77,23 @@ class Robot
         return meter
     end
 
-    def forward()
-        meter = self.meter()
+    def forward
+        meter = self.meter
         puts "Robot go forward #{meter} m.\n\n"
     end
     
-    def left()
-        meter = self.meter()
+    def left
+        meter = self.meter
         puts "Robot go Left #{meter} m.\n\n"
     end
     
-    def right()
-        meter = self.meter()
+    def right
+        meter = self.meter
         puts "Robot go Right #{meter} m.\n\n"
     end
 
-    def back()
-        meter = self.meter()
+    def back
+        meter = self.meter
         puts "Robot go back #{meter} m.\n\n"
     end
     
@@ -75,13 +113,13 @@ class Robot
             if ctr == 8 || ctr == 4 || ctr == 6 || ctr == 2 || ctr == 0
                 case ctr
                 when 8
-                    self.forward()
+                    self.forward
                 when 4
-                    self.left()
+                    self.left
                 when 6
-                    self.right()
+                    self.right
                 when 2
-                    self.back()
+                    self.back
                 when 0
                     break
                 end
