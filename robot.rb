@@ -13,7 +13,7 @@ class Robot
             print "[]"
             sleep(0.03)
         end
-
+        puts "\nPower is balance: #{@bettery}"
         puts "\n\n"
     end
 
@@ -56,14 +56,12 @@ class Robot
                 if meter / 20 <= @bettery 
                     @bettery -= (meter / 20)
                     far = @bettery / 0.05
-                    puts "Power balance: #{@bettery}"
                     puts "Move as far as possible: #{far} m."
                     self.bettery
 
                     break
                 else
                     puts "Not enough power with distance!"
-                    puts "Power balance: #{@bettery}"
                     puts "Move as far as possible: #{far} m."
                     self.bettery
 
@@ -80,21 +78,25 @@ class Robot
     def forward
         meter = self.meter
         puts "Robot go forward #{meter} m.\n\n"
+        self.press_key
     end
     
     def left
         meter = self.meter
         puts "Robot go Left #{meter} m.\n\n"
+        self.press_key
     end
     
     def right
         meter = self.meter
         puts "Robot go Right #{meter} m.\n\n"
+        self.press_key
     end
 
     def back
         meter = self.meter
         puts "Robot go back #{meter} m.\n\n"
+        self.press_key
     end
     
     def move
@@ -123,6 +125,8 @@ class Robot
                 when 0
                     break
                 end
+
+                system "cls"
             else
                 puts "Can't choose try again!"
             end
@@ -141,6 +145,8 @@ class Robot
         print "\n \\|"
         print "\n  \\| \n"
         
+        @bettery -= 1
+
         self.press_key
     end
 end

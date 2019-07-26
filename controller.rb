@@ -16,8 +16,8 @@ class Controller < Robot
             print "Choose an order: "
             cmd = gets.chomp.to_i
             
-            if cmd < 1 && cmd > 1
-                puts "can't choose order try again!"
+            if cmd < 0 || cmd > 3
+                puts "can't choose order try again!"                
             else
                 break
             end
@@ -32,11 +32,26 @@ class Controller < Robot
 
             case cmd
             when 1
-                self.sayhi()
+                if @bettery >= 0.5 
+                    self.sayhi()
+                else
+                    puts "Low bettery please choose [0]exit and come back :)"
+                    self.press_key
+                end
             when 2
-                self.move()
+                if @bettery > 0 
+                    self.move()
+                else
+                    puts "Low bettery please choose [0]exit and come back :)"
+                    self.press_key
+                end
             when 3
-                self.beam()
+                if @bettery >= 1 
+                    self.beam()
+                else
+                    puts "Low bettery please choose [0]exit and come back :)"
+                    self.press_key
+                end
             else
                 if cmd != 0
                     puts "not found"
